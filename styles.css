@@ -1,0 +1,354 @@
+/*
+  Minimal static recreation of the archived Oboe homepage.
+  The original Webflow stylesheet is used only as a structural/visual reference.
+  No Webflow, jQuery, Lottie, GSAP, SplitType, analytics, or runtime CSS is retained.
+*/
+
+:root {
+  --page-gutter: clamp(1.25rem, 3.2vw, 3.5rem);
+  --header-height: clamp(4.75rem, 7vw, 6.5rem);
+  --foreground: #111111;
+  --muted: rgba(17, 17, 17, 0.58);
+  --surface: #ffffff;
+  --border: rgba(17, 17, 17, 0.62);
+  --button-radius: 999px;
+  --content-width: 54rem;
+  --transition: 160ms ease;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+html {
+  background: var(--surface);
+}
+
+body {
+  color: var(--foreground);
+  background: var(--surface);
+  font-family: Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
+}
+
+.page {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* --------------------------------------------------------------------------
+   Navigation
+   -------------------------------------------------------------------------- */
+
+.site-header {
+  position: fixed;
+  z-index: 30;
+  inset: 0 0 auto;
+  height: var(--header-height);
+  pointer-events: none;
+}
+
+.nav {
+  height: 100%;
+  padding-inline: var(--page-gutter);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.nav > * {
+  pointer-events: auto;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  flex: none;
+}
+
+.brand__logo {
+  display: block;
+  width: clamp(4.4rem, 6.6vw, 6.4rem);
+  height: auto;
+}
+
+.nav__links {
+  display: flex;
+  align-items: center;
+  gap: clamp(1.25rem, 2.1vw, 2.4rem);
+  font-size: 0.875rem;
+  line-height: 1;
+}
+
+.nav__links > a:not(.social-link) {
+  position: relative;
+  padding-block: 0.45rem;
+}
+
+.nav__links > a:not(.social-link)::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.18rem;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform var(--transition);
+}
+
+.nav__links > a:not(.social-link):hover::after,
+.nav__links > a:not(.social-link):focus-visible::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.social-link {
+  display: grid;
+  width: 1.1rem;
+  height: 1.1rem;
+  place-items: center;
+}
+
+.social-link svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+}
+
+/* --------------------------------------------------------------------------
+   Hero / background
+   -------------------------------------------------------------------------- */
+
+.hero {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding:
+    calc(var(--header-height) + 1rem)
+    var(--page-gutter)
+    clamp(5rem, 9vh, 7rem);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.hero__poster,
+.hero__animation {
+  position: absolute;
+  z-index: -2;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.hero__poster {
+  background:
+    #f3f3f0
+    url("https://assets-global.website-files.com/648c24201c47788e803ed3e8/64b61b90cf2b8b7a17a0a969_Home%20BG%20Video-poster-00001.jpg")
+    center / cover no-repeat;
+}
+
+.hero__animation {
+  z-index: -1;
+  display: block;
+  object-fit: cover;
+  object-position: center;
+}
+
+.hero__content {
+  width: min(100%, var(--content-width));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: clamp(2rem, 4vh, 3.25rem);
+}
+
+.hero__copy {
+  display: grid;
+  justify-items: center;
+  gap: clamp(0.85rem, 1.7vh, 1.25rem);
+}
+
+.hero h1 {
+  max-width: 13ch;
+  margin: 0;
+  font-size: clamp(3rem, 7vw, 6.75rem);
+  font-weight: 400;
+  line-height: 0.95;
+  letter-spacing: -0.055em;
+}
+
+.hero p {
+  margin: 0;
+  font-size: clamp(1rem, 1.55vw, 1.3rem);
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: -0.015em;
+}
+
+.hero__actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+}
+
+.button {
+  min-width: 7.8rem;
+  min-height: 2.8rem;
+  padding: 0.82rem 1.4rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+  border-radius: var(--button-radius);
+  font-size: 0.875rem;
+  line-height: 1;
+  transition:
+    background-color var(--transition),
+    color var(--transition),
+    border-color var(--transition),
+    transform var(--transition);
+}
+
+.button:hover {
+  transform: translateY(-1px);
+}
+
+.button--primary {
+  color: #ffffff;
+  background: var(--foreground);
+  border-color: var(--foreground);
+}
+
+.button--primary:hover,
+.button--primary:focus-visible {
+  color: var(--foreground);
+  background: transparent;
+}
+
+.button--secondary {
+  color: var(--foreground);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.button--secondary:hover,
+.button--secondary:focus-visible {
+  color: #ffffff;
+  background: var(--foreground);
+  border-color: var(--foreground);
+}
+
+/* --------------------------------------------------------------------------
+   Footer
+   -------------------------------------------------------------------------- */
+
+.site-footer {
+  position: fixed;
+  z-index: 20;
+  left: var(--page-gutter);
+  bottom: clamp(1.25rem, 2.5vw, 2.25rem);
+  color: var(--muted);
+  font-size: 0.7rem;
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+}
+
+/* --------------------------------------------------------------------------
+   Responsive simplification
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 700px) {
+  :root {
+    --page-gutter: 1.1rem;
+    --header-height: 4.5rem;
+  }
+
+  .brand__logo {
+    width: 4.5rem;
+  }
+
+  .nav {
+    gap: 1rem;
+  }
+
+  .nav__links {
+    gap: 1rem;
+    font-size: 0.78rem;
+  }
+
+  .hero {
+    align-items: center;
+  }
+
+  .hero h1 {
+    font-size: clamp(3rem, 15vw, 5rem);
+    line-height: 0.96;
+  }
+
+  .hero__content {
+    gap: 2rem;
+  }
+
+  .button {
+    min-width: 7.1rem;
+  }
+}
+
+@media (max-width: 440px) {
+  .nav__links {
+    gap: 0.7rem;
+  }
+
+  .social-link {
+    display: none;
+  }
+
+  .hero__actions {
+    width: 100%;
+  }
+
+  .button {
+    flex: 1 1 8rem;
+    max-width: 10rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
